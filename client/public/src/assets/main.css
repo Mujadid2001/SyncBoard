@@ -1,0 +1,453 @@
+/* ============================================================================
+   SyncBoard - Main Stylesheet
+   ============================================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
+  line-height: 1.6;
+}
+
+/* ============================================================================
+   App Container
+   ============================================================================ */
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+#sync-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #fbbf24;
+  animation: pulse 2s infinite;
+}
+
+.status-indicator.connected {
+  background-color: #10b981;
+}
+
+.status-indicator.disconnected {
+  background-color: #ef4444;
+}
+
+.status-indicator.syncing {
+  background-color: #3b82f6;
+  animation: pulse 1s infinite;
+}
+
+.status-indicator.synced {
+  background-color: #10b981;
+}
+
+.status-indicator.offline {
+  background-color: #f97316;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ============================================================================
+   Main Content
+   ============================================================================ */
+
+main {
+  flex: 1;
+  padding: 2rem;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.board {
+  display: flex;
+  gap: 1.5rem;
+  min-height: min-content;
+}
+
+/* ============================================================================
+   Column Styles
+   ============================================================================ */
+
+.column {
+  flex: 0 0 350px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+  padding: 1rem;
+  max-height: calc(100vh - 200px);
+}
+
+.column.add-column-btn {
+  min-width: 350px;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: 2px dashed #cbd5e1;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.column.add-column-btn:hover {
+  background-color: #e2e8f0;
+  border-color: #94a3b8;
+}
+
+.column.drag-over {
+  background-color: #dbeafe;
+  box-shadow: inset 0 0 8px rgba(37, 99, 235, 0.2);
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #cbd5e1;
+}
+
+.column-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.column-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: #cbd5e1;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.tasks-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.tasks-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tasks-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tasks-container::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.tasks-container::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ============================================================================
+   Card Styles
+   ============================================================================ */
+
+.card {
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 0.875rem;
+  cursor: move;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: #cbd5e1;
+}
+
+.card.dragging {
+  opacity: 0.5;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+}
+
+.card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.4;
+  flex: 1;
+  word-break: break-word;
+}
+
+.card-menu-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.card-menu-btn:hover {
+  color: #334155;
+}
+
+.card-description {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-bottom: 0.75rem;
+}
+
+.tag {
+  display: inline-block;
+  background-color: #dbeafe;
+  color: #0369a1;
+  padding: 0.25rem 0.625rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.card-assignee {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-bottom: 0.5rem;
+}
+
+.assignee-label {
+  font-weight: 500;
+}
+
+.assignee-name {
+  color: #475569;
+  margin-left: 0.25rem;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: #94a3b8;
+  padding-top: 0.5rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+.card-placeholder {
+  background-color: #2563eb;
+  height: 2px;
+  border-radius: 1px;
+  margin: 0.5rem 0;
+  opacity: 0.7;
+}
+
+/* ============================================================================
+   Button Styles
+   ============================================================================ */
+
+.btn-add-card {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: transparent;
+  border: 2px dashed #cbd5e1;
+  border-radius: 6px;
+  color: #64748b;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+}
+
+.btn-add-card:hover {
+  border-color: #94a3b8;
+  color: #475569;
+  background-color: #f8fafc;
+}
+
+.btn-add-column {
+  padding: 0.75rem 1.5rem;
+  background-color: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+}
+
+.btn-add-column:hover {
+  background-color: #1d4ed8;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-add-column:active {
+  transform: scale(0.98);
+}
+
+/* ============================================================================
+   Footer
+   ============================================================================ */
+
+footer {
+  padding: 1rem 2rem;
+  background-color: #fff;
+  border-top: 1px solid #e2e8f0;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.875rem;
+}
+
+/* ============================================================================
+   Responsive Design
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  header {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  header h1 {
+    font-size: 1.25rem;
+  }
+
+  main {
+    padding: 1rem;
+  }
+
+  .column {
+    flex: 0 0 300px;
+    max-height: calc(100vh - 180px);
+  }
+
+  .card {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 0.75rem;
+  }
+
+  main {
+    padding: 0.75rem;
+  }
+
+  .column {
+    flex: 0 0 280px;
+    padding: 0.75rem;
+  }
+
+  .column-title {
+    font-size: 0.9rem;
+  }
+
+  .card-title {
+    font-size: 0.85rem;
+  }
+}
+
+/* ============================================================================
+   Print Styles
+   ============================================================================ */
+
+@media print {
+  header,
+  footer,
+  .btn-add-card,
+  .btn-add-column,
+  .card-menu-btn {
+    display: none;
+  }
+
+  main {
+    padding: 0;
+  }
+
+  .column {
+    page-break-inside: avoid;
+  }
+
+  .card {
+    page-break-inside: avoid;
+  }
+}

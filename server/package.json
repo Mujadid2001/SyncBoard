@@ -1,0 +1,29 @@
+{
+  "name": "syncboard-server",
+  "version": "1.0.0",
+  "description": "SyncBoard - Offline-first Kanban server",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "NODE_ENV=development node src/server.js",
+    "build": "echo 'No build needed for Node.js'",
+    "test": "echo 'Tests placeholder'"
+  },
+  "keywords": [
+    "kanban",
+    "offline-first",
+    "sync",
+    "collaboration",
+    "crdt"
+  ],
+  "author": "SyncBoard Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.14.2"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

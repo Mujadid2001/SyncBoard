@@ -1,0 +1,24 @@
+{
+  "name": "syncboard-client",
+  "version": "1.0.0",
+  "description": "SyncBoard - Offline-first Kanban client",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "python -m http.server 8000 --directory public",
+    "dev": "node ../scripts/dev-server.js",
+    "build": "echo 'Build not needed for vanilla JS'",
+    "test": "echo 'Tests placeholder'"
+  },
+  "keywords": [
+    "kanban",
+    "offline-first",
+    "sync",
+    "collaboration",
+    "crdt"
+  ],
+  "author": "SyncBoard Team",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}
